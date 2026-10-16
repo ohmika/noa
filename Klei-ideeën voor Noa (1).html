@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Klei-ideeën voor Noa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&display=swap">
+<style>
+:root{
+  --bg:#efe9ff;--card:#ffffff;--ink:#2b1b4d;--mut:#6b5a8f;
+  --easy:#6fd6b0;--norm:#ffcf4a;--hard:#ff7a9a;--edge:#2b1b4d;
+  color-scheme:light;box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--bg:#1f1636;--card:#33254f;--ink:#f3ecff;--mut:#bba9e0;--edge:#0f0a1d;color-scheme:dark}
+}
+:root[data-theme="dark"]{--bg:#1f1636;--card:#33254f;--ink:#f3ecff;--mut:#bba9e0;--edge:#0f0a1d;color-scheme:dark}
+*,*::before,*::after{box-sizing:inherit}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:"Baloo 2",ui-rounded,"Trebuchet MS",system-ui,sans-serif;min-height:100vh;display:flex;justify-content:center}
+main{width:100%;max-width:460px;padding:28px 20px 40px}
+h1{font-size:2.3rem;line-height:1.05;margin:0 0 6px;font-weight:800}
+.sub{margin:0 0 26px;color:var(--mut);font-size:1.1rem;line-height:1.35}
+.levels{display:grid;gap:14px}
+.lvl{font:inherit;font-weight:800;font-size:1.6rem;color:#2b1b4d;border:3px solid var(--edge);padding:16px 22px;cursor:pointer;display:flex;align-items:center;gap:14px;text-align:left;box-shadow:0 6px 0 var(--edge);transition:transform .12s,box-shadow .12s,border-radius .2s}
+.lvl small{display:block;font-size:.95rem;font-weight:500;opacity:.8}
+.lvl .e{font-size:2rem}
+.lvl[data-l="makkelijk"]{background:var(--easy);border-radius:34px 52px 40px 48px}
+.lvl[data-l="normaal"]{background:var(--norm);border-radius:50px 36px 52px 38px}
+.lvl[data-l="moeilijk"]{background:var(--hard);border-radius:40px 48px 36px 54px}
+.lvl:active{transform:translateY(5px) scale(1.02,.97);box-shadow:0 1px 0 var(--edge)}
+.lvl:focus-visible,.again:focus-visible{outline:4px solid var(--ink);outline-offset:3px}
+.lvl[aria-pressed="true"]{outline:4px solid var(--ink);outline-offset:3px}
+#out{margin-top:30px;min-height:20px}
+.idea{background:var(--card);border:3px solid var(--edge);border-radius:46px 38px 50px 40px;padding:26px 22px 22px;text-align:center;box-shadow:0 6px 0 var(--edge);animation:pop .35s ease-out}
+.idea .big{font-size:4.6rem;line-height:1}
+.idea h2{margin:8px 0 6px;font-size:2rem;font-weight:800;line-height:1.1}
+.idea p{margin:0 auto 16px;font-size:1.2rem;line-height:1.35;max-width:30ch}
+.chip{display:inline-block;padding:2px 14px;border:2px solid var(--edge);border-radius:20px;font-weight:700;color:#2b1b4d;margin-bottom:6px}
+.again{font:inherit;font-weight:700;font-size:1.1rem;color:var(--ink);background:transparent;border:3px solid var(--ink);border-radius:30px;padding:8px 22px;cursor:pointer}
+.again:active{transform:scale(.96)}
+@keyframes pop{from{transform:scale(.85) rotate(-2deg);opacity:0}to{transform:none;opacity:1}}
+@media (prefers-reduced-motion:reduce){.idea{animation:none}.lvl,.again{transition:none}}
+</style>
+</head>
+<body>
+<main>
+  <h1>Hoi Noa!</h1>
+  <p class="sub">Kies hoe moeilijk je het wilt, dan krijg je een idee om te kleien.</p>
+  <div class="levels" role="group" aria-label="Moeilijkheidsgraad">
+    <button class="lvl" data-l="makkelijk" aria-pressed="false"><span class="e">🌱</span><span>Makkelijk<small>Snel klaar</small></span></button>
+    <button class="lvl" data-l="normaal" aria-pressed="false"><span class="e">🎨</span><span>Normaal<small>Even doorwerken</small></span></button>
+    <button class="lvl" data-l="moeilijk" aria-pressed="false"><span class="e">🔥</span><span>Moeilijk<small>Een echte uitdaging</small></span></button>
+  </div>
+  <div id="out" aria-live="polite"></div>
+</main>
+<script>
+const D={
+makkelijk:[
+["🐛","Regenworm","Rol een lange worm en geef hem een lief gezichtje."],
+["🍄","Paddenstoel","Een steeltje met een bolle hoed en stippen erop."],
+["🍎","Appel","Maak een bol, druk er bovenin een kuiltje in en zet een steeltje en blaadje erin."],
+["⛄","Sneeuwpop","Drie bollen op elkaar met een worteltje als neus."],
+["🐌","Slak","Een dikke worm met een opgerold huisje op zijn rug."],
+["🥚","Kuikentje in een ei","Een ei met een kuikentje dat er net uit piept."],
+["🧁","Cupcake","Een bakje, een bol 'slagroom' en een kersje erop."],
+["❤️","Hartje","Maak een plat hartje en druk er met een stokje een patroon in."],
+["🫙","Duimpotje","Duw je duim in een bol en vorm er een klein potje van."],
+["🐞","Lieveheersbeestje","Een rood bolletje met zwarte stippen en een klein kopje."],
+["🐠","Visje","Een druppelvorm met een staartvin en een rond oogje."],
+["🍩","Donut","Rol een worm, maak er een ring van en versier hem met kleine balletjes als strooisels."],
+["🌻","Zonnebloem","Een bol in het midden met allemaal blaadjes eromheen."],
+["🐭","Muisje","Een druppel met grote oren en een lang staartje."],
+["🍓","Aardbei","Een druppelvorm met kleine putjes en groene blaadjes bovenop."],
+["🐷","Varkentje","Een bolletje met een plat snuitje en twee puntige oortjes."],
+["🌈","Regenboog","Rol worsten in verschillende kleuren en leg ze als een boog naast elkaar."],
+["🍪","Koekje","Een plat rondje met chocoladestukjes erin gedrukt."],
+["🐥","Kuiken","Een geel bolletje met een klein snaveltje en oogjes."],
+["🥕","Wortel","Een lange kegel met streepjes en een groen kuifje."],
+["🍬","Snoepje","Een worstje met aan beide kanten een gedraaid papiertje."],
+["🐙","Octopus","Een bol met acht korte armpjes eronder."],
+["⭐","Ster","Rol de klei plat en vorm vijf punten."],
+["🌸","Bloem","Vijf bolletjes in een cirkel met een gekleurd midden."],
+["🐸","Kikker","Een groene bol met uitpuilende ogen en een brede mond."],
+["🍌","Banaan","Een gebogen worst met een bruin puntje."],
+["🍉","Watermeloenschijf","Een halve cirkel met een groene rand en zwarte pitjes."],
+["🐻","Beertje","Een bol voor het hoofd, twee oortjes en een lichte snuit."],
+["🍒","Kersen","Twee bolletjes verbonden met dunne steeltjes."],
+["🐍","Slang","Een lange, gekronkelde worm met een patroon en een tongetje."]],
+normaal:[
+["🐢","Schildpad","Een schild met een patroon, vier pootjes, een kop en een staartje."],
+["🦉","Uil","Een eitje met grote ogen, een snaveltje en veertjes erop."],
+["☕","Mok met oor","Maak een duimpot en zet er een oor aan. Druk het goed vast."],
+["🍕","Pizza","Een plat rondje met saus, kaas en je favoriete toppings."],
+["🍦","IJsje","Een hoorntje met een ruitpatroon en bolletjes ijs erop."],
+["🦋","Vlinder","Twee grote vleugels met patroontjes en een dun lijfje."],
+["🦔","Egel","Een druppelvorm met allemaal kleine prikkels op zijn rug."],
+["🏠","Huisje","Muren, een dak, een deur en raampjes."],
+["🐱","Kat","Een zittende kat met oortjes, snorharen en een lange staart."],
+["🦕","Dino","Een lange nek, een dikke staart en stekels op zijn rug."],
+["🐘","Olifant","Grote oren, een slurf en dikke pootjes."],
+["🐧","Pinguïn","Een ovaal lijf met een wit buikje, vleugeltjes en een oranje snavel."],
+["🚗","Autootje","Een carrosserie met vier wielen en ramen."],
+["🌵","Cactus in pot","Een groene cactus met stekels, in een potje."],
+["🦆","Eend","Een lijf, een kop met een plat snavel en een gebogen staart."],
+["🍔","Hamburger","Twee broodjes met sla, tomaat, kaas en een burger ertussen."],
+["🐝","Bij","Een gestreept lijf met kleine vleugels en een angeltje."],
+["🧸","Teddybeer","Een zittende beer met armen, benen, oren en een knoopneus."],
+["🎃","Pompoen","Een bolle pompoen met lijnen, een steeltje en eventueel een gezicht."],
+["🐳","Walvis","Een grote, bolle walvis met een fontein bovenop."],
+["🚀","Raket","Een lange raket met vleugels, een raam en vlammen onderaan."],
+["🦩","Flamingo","Lange dunne poten, een gebogen nek en een roze lijf."],
+["🍰","Taartpunt","Een driehoekig stuk taart met lagen en een kersje erop."],
+["🐕","Hond","Een zittende hond met hangoren, een staart en een tong."],
+["🌴","Palmboom","Een stam met grote bladeren en kokosnoten."],
+["🦀","Krab","Een plat lijf met scharen, pootjes en uitstekende oogjes."],
+["🐿️","Eekhoorn","Een slank lijf met een grote pluizige staart en een nootje."],
+["🎸","Gitaar","Een lijf, een lange hals en snaren van dunne draadjes."],
+["🍳","Spiegelei in pan","Een pannetje met een ei erin."],
+["🦜","Papegaai","Een kleurrijk lijf met een gebogen snavel en lange staartveren."]],
+moeilijk:[
+["🐉","Draak","Vleugels, stekels, een lange staart en schubben op zijn lijf."],
+["🏰","Kasteel","Torens, kantelen, een poort en een ophaalbrug."],
+["🧜‍♀️","Zeemeermin","Een staart met schubben, een lijfje en lang haar."],
+["🫖","Theepot met deksel","Een bolle pot met tuit en hengsel, en een deksel dat er precies op past."],
+["🧚","Fee","Een poppetje met kleertjes, vleugels en een toverstaf."],
+["🐎","Paard","Vier slanke pootjes, een gebogen nek en een mooie manen."],
+["🎠","Draaimolen","Een rond dak, een paal in het midden en paardjes die erop zitten."],
+["🧑","Jezelf als buste","Let op je neus, je ogen en je eigen kapsel."],
+["🦈","Haai in de golven","Een haai die uit een golf springt, met scherpe tandjes."],
+["🎂","Taart met lagen","Meerdere lagen, glazuur, versiering en kaarsjes."],
+["🦒","Giraf","Een lange nek, vlekken, dunne pootjes en kleine hoorntjes."],
+["🦄","Eenhoorn","Een paard met een gedraaide hoorn, manen en een staart."],
+["🚢","Piratenschip","Een romp, masten, zeilen en een vlag."],
+["🧙","Tovenaar","Een poppetje met een lange mantel, een puntige hoed en een staf."],
+["🦁","Leeuw","Een lijf met een grote manen die helemaal rond zijn kop zit."],
+["🌋","Vulkaan","Een berg met een krater, lava die naar beneden stroomt en kleine boompjes."],
+["🎹","Piano","Een kast met een klep en toetsen die je apart maakt."],
+["🦖","T-rex","Een grote kop met tanden, kleine armpjes en een zware staart."],
+["🚂","Stoomtrein","Een locomotief met schoorsteen en wielen, met wagonnetjes erachter."],
+["🦅","Adelaar","Een grote vogel met uitgespreide vleugels vol veren."],
+["🏡","Boomhut","Een dikke boom met een huisje, een ladder en takken."],
+["🎪","Circustent","Een gestreepte tent met een vlag en een ingang."],
+["👸","Prinses","Een poppetje met een jurk, een kroon en lang haar."],
+["🦢","Zwaan","Een lange, gebogen nek, vleugels en een elegante vorm."],
+["🚁","Helikopter","Een lijf met een staartje, een raam en draaiende wieken."],
+["🏝️","Tropisch eiland","Zand, palmbomen, een strandstoel en water eromheen."],
+["🦚","Pauw","Een lijf met een grote waaier van staartveren met ogen erin."],
+["🕰️","Klok","Een ronde klok met cijfers, wijzers en een slinger."],
+["🎄","Kerstboom","Gelaagde takken met bolletjes, een ster en cadeautjes eronder."],
+["🦓","Dierentuin","Hokken met meerdere dieren en een toegangspoort."]]
+};
+const L={makkelijk:"Makkelijk",normaal:"Normaal",moeilijk:"Moeilijk"};
+const C={makkelijk:"var(--easy)",normaal:"var(--norm)",moeilijk:"var(--hard)"};
+const bag={};let last=null;
+function draw(l){
+  if(!bag[l]||!bag[l].length){
+    const a=D[l].slice();
+    for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}
+    if(last&&a[a.length-1][1]===last)[a[0],a[a.length-1]]=[a[a.length-1],a[0]];
+    bag[l]=a;
+  }
+  const x=bag[l].pop();last=x[1];return x;
+}
+const out=document.getElementById("out"),btns=[...document.querySelectorAll(".lvl")];
+function show(l){
+  const [e,t,d]=draw(l);
+  btns.forEach(b=>b.setAttribute("aria-pressed",b.dataset.l===l));
+  out.innerHTML="";
+  const c=document.createElement("div");c.className="idea";
+  c.innerHTML='<span class="chip" style="background:'+C[l]+'">'+L[l]+'</span><div class="big">'+e+'</div><h2></h2><p></p><button class="again" type="button">Nog een idee</button>';
+  c.querySelector("h2").textContent=t;
+  c.querySelector("p").textContent=d;
+  c.querySelector(".again").onclick=()=>show(l);
+  out.appendChild(c);
+  c.scrollIntoView({behavior:"smooth",block:"nearest"});
+}
+btns.forEach(b=>b.onclick=()=>show(b.dataset.l));
+</script>
+</body>
+</html>
